@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<items>
+    <item>
+        <name>Google</name>
+        <url target="both" encoding="default">https://www.google.com/search?q={target}</url>
+        <url target="ascii_only">https://www.google.com/search?q=define%3A{target}</url>
+        <keystroke>ctrl shift F</keystroke>
+    </item>
+    <item>
+        <name>Yahoo</name>
+        <url target="ascii_only">http://search.yahoo.com/search?p={target}</url>
+        <url target="non_ascii_only">http://search.yahoo.co.jp/search?p={target}</url>
+    </item>
+</items>

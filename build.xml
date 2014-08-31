@@ -1,0 +1,44 @@
+<project name="ExternalFinder plugin for OmegaT" default="dist">
+
+    <property name="version" value="0.9.0" />
+    <property name="javac.source" value="1.5" />
+    <property name="javac.target" value="1.5" />
+    <property name="encoding" value="UTF-8" />
+
+    <target name="clean">
+        <delete dir="build" />
+        <delete dir="dist" />
+    </target>
+
+    <target name="build" depends="clean">
+        <mkdir dir="build/stub-classes" />
+        <javac destdir="build/stub-classes" source="${javac.source}" target="${javac.target}" encoding="${encoding}">
+            <src path="src-stubs" />
+        </javac>
+
+        <mkdir dir="lib" />
+        <mkdir dir="build/classes" />
+        <javac destdir="build/classes" source="${javac.source}" target="${javac.target}" encoding="${encoding}">
+            <src path="src" />
+            <classpath>
+                <fileset dir="lib" includes="**/*.jar" />
+                <pathelement path="build/stub-classes" />
+            </classpath>
+        </javac>
+        <copy todir="build/classes">
+            <fileset dir="src" excludes="**/*.java" />
+        </copy>
+    </target>
+
+    <target name="jar" depends="build">
+        <jar jarfile="build/OmegaT-plugin-ExternalFinder.jar" basedir="build/classes" manifest="MANIFEST.MF" />
+        <mkdir dir="dist" />
+        <zip destfile="dist/OmegaT-plugin-ExternalFinder_${version}.zip">
+            <fileset dir="build" includes="*.jar" />
+            <fileset dir="." includes="README.md, LICENSE, finder.xml" />
+        </zip>
+        <zip destfile="dist/OmegaT-plugin-ExternalFinder_${version}-src.zip">
+            <fileset dir="." excludes="lib/**, build/**, dist/**, .settings/**, classes/**, nbproject/private/**" />
+        </zip>
+    </target>
+</project>
