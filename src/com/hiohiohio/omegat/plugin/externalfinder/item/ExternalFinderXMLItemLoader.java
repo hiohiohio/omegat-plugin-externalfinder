@@ -58,7 +58,9 @@ public class ExternalFinderXMLItemLoader implements IExternalFinderItemLoader {
             for (int i = 0, n = nodeList.getLength(); i < n; i++) {
                 ExternalFinderItem finderItem = generateFinderItem(nodeList.item(i));
 
-                if (finderItem.getName() != null && !finderItem.getName().isEmpty()
+                if (finderItem != null
+                        && finderItem.getName() != null
+                        && !finderItem.getName().isEmpty()
                         && !finderItems.contains(finderItem)) {
                     finderItems.add(finderItem);
                 }
