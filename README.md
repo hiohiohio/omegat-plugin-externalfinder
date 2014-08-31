@@ -37,14 +37,14 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 |MAC OS X|&lt;User Home&gt;/Library/Preferences/OmegaT|
 |Other|&lt;User Home&gt;|
 	
-finder.xml 
+#### finder.xml 
 
 * **name**: A string to show as a menu item.
 * **url**: A URL with a **{target}** placeholder with *optional* attributes: *target* and *encoding*.
 * **command**: A command string with a **{taget}** placeholder with *optional* attributes: *target*, *encoding*, and *delimiter*.
 * **keystroke**: A definition of the keyboard shortcut (same as OmegaT's custom keyboard shortcut). Ref. [KeyStroke (Java Platform SE 8 )](http://docs.oracle.com/javase/8/docs/api/javax/swing/KeyStroke.html#getKeyStroke-java.lang.String-)
 
-finder.xml examples:
+#### finder.xml examples:
 
 * The value of **target** attribute can be **both**, **ascii_only**, or **non_ascii_only**.
 * The value of **encoding** attribute can be **default**, **escape**, or **none**. The difference between *default* and *escape* is the whitespace which becomes **+** with *default* (URL Encoding) and **%20** with *escape* (for some web sites).
@@ -85,6 +85,10 @@ Licensing
 --------------------------------
 Please see the file called LICENSE.
 
+Other plugins
+--------------------------------
+A list of plugins on [http://hiohiohio.github.io/](http://hiohiohio.github.io/)
+
 Acknowledgements
 --------------------------------
-The OmegaT project (http://www.omegat.org/) and all contributors.
+The OmegaT project ([http://www.omegat.org/](http://www.omegat.org/)) and all contributors.
