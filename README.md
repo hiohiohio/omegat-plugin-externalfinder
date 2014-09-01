@@ -75,7 +75,7 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 <items>
     <item>
         <name>Dictionary</name>
-        <command encoding="default">/usr/bin/open|dict://{target}</url>
+        <command encoding="default">/usr/bin/open|dict://{target}</command>
         <keystroke>ctrl shift K</keystroke>
     </item>
 </items>
@@ -87,7 +87,7 @@ Please see the file called LICENSE.
 
 Other plugins
 --------------------------------
-A list of plugins on [http://hiohiohio.github.io/](http://hiohiohio.github.io/)
+A list of plugins on [https://hiohiohio.github.io/](https://hiohiohio.github.io/)
 
 Acknowledgements
 --------------------------------
