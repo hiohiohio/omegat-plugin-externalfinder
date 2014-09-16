@@ -16,12 +16,10 @@
             <src path="src-stubs" />
         </javac>
 
-        <mkdir dir="lib" />
         <mkdir dir="build/classes" />
         <javac destdir="build/classes" source="${javac.source}" target="${javac.target}" encoding="${encoding}">
             <src path="src" />
             <classpath>
-                <fileset dir="lib" includes="**/*.jar" />
                 <pathelement path="build/stub-classes" />
             </classpath>
         </javac>
