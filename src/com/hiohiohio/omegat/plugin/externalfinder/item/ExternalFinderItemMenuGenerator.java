@@ -58,6 +58,9 @@ public class ExternalFinderItemMenuGenerator implements IExternalFinderItemMenuG
             }
             for (int i = 0, n = finderItems.size(); i < n; i++) {
                 ExternalFinderItem finderItem = finderItems.get(i);
+                if (popup && finderItem.isNopopup()) {
+                    continue;
+                }
                 if (target == ExternalFinderItem.TARGET.ASCII_ONLY
                         && finderItem.isNonAsciiOnly()) {
                     continue;

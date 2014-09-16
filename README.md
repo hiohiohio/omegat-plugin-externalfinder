@@ -40,6 +40,7 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 #### finder.xml 
 
 * **items**: This element has an *optional* attribute *priority*.
+* **item**: This element has an *optional* attribute *nopopup*.
 * **name**: A string to show as a menu item.
 * **url**: A URL with a **{target}** placeholder with *optional* attributes: *target* and *encoding*.
 * **command**: A command string with a **{taget}** placeholder with *optional* attributes: *target*, *encoding*, and *delimiter*.
@@ -59,6 +60,7 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 |500|EmptyNoneTranslationPopup|
 |600|InsertTagsPopup|
 
+* The value of **nopopup** attribute *MUST* be **true**.
 * The value of **target** attribute can be **both**, **ascii_only**, or **non_ascii_only**.
 * The value of **encoding** attribute can be **default**, **escape**, or **none**. The difference between *default* and *escape* is the whitespace which becomes **+** with *default* (URL Encoding) and **%20** with *escape* (for some web sites).
 * The default values of *target* and *encoding* attributes are **both** and **default**.
@@ -66,7 +68,7 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
 <items priority="50">
-    <item>
+    <item nopopup="true">
         <name>Google</name>
         <url target="both" encoding="default">https://www.google.com/search?q={target}</url>
         <url target="ascii_only">https://www.google.com/search?q=define%3A{target}</url>

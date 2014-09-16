@@ -41,6 +41,7 @@ public class ExternalFinderItem {
     private List<ExternalFinderItemURL> URLs;
     private List<ExternalFinderItemCommand> commands;
     private KeyStroke keystroke;
+    private boolean nopopup = false;
     private Boolean asciiOnly = null;
     private Boolean nonAsciiOnly = null;
 
@@ -49,11 +50,12 @@ public class ExternalFinderItem {
         this.commands = new ArrayList<ExternalFinderItemCommand>();
     }
 
-    public ExternalFinderItem(String name, List<ExternalFinderItemURL> URLs, List<ExternalFinderItemCommand> commands, KeyStroke keystroke) {
+    public ExternalFinderItem(String name, List<ExternalFinderItemURL> URLs, List<ExternalFinderItemCommand> commands, KeyStroke keystroke, boolean nopopup) {
         this.name = name;
         this.URLs = URLs;
         this.commands = commands;
         this.keystroke = keystroke;
+        this.nopopup = nopopup;
     }
 
     public String getName() {
@@ -90,6 +92,14 @@ public class ExternalFinderItem {
 
     public void setKeystroke(KeyStroke keystroke) {
         this.keystroke = keystroke;
+    }
+
+    public boolean isNopopup() {
+        return nopopup;
+    }
+
+    public void setNopopup(boolean nopopup) {
+        this.nopopup = nopopup;
     }
 
     public boolean isAsciiOnly() {
@@ -129,6 +139,7 @@ public class ExternalFinderItem {
         this.URLs = item.URLs;
         this.commands = item.commands;
         this.keystroke = item.keystroke;
+        this.nopopup = item.nopopup;
 
         this.asciiOnly = null; // item.isAsciiOnly();
         this.nonAsciiOnly = null; // item.isNonAsciiOnly();

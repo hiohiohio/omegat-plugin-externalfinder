@@ -133,6 +133,17 @@ public class ExternalFinderXMLItemLoader implements IExternalFinderItemLoader {
 
         final ExternalFinderItem finderItem = new ExternalFinderItem();
 
+        // retrive popup
+        if (item.hasAttributes()) {
+            Node nopopup = item.getAttributes().getNamedItem("nopopup");
+            if (nopopup != null) {
+                String value = nopopup.getTextContent();
+                if (value.equals("true")) {
+                    finderItem.setNopopup(true);
+                }
+            }
+        }
+
         for (int i = 0, n = childNodes.getLength(); i < n; i++) {
             final Node childNode = childNodes.item(i);
 
