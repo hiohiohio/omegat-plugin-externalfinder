@@ -26,17 +26,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
+import javax.swing.JPopupMenu;
+import javax.swing.JToolBar;
 import org.omegat.core.Core;
 
 public class ExternalFinderItemMenuGenerator implements IExternalFinderItemMenuGenerator {
 
     private final List<ExternalFinderItem> finderItems;
-    private final boolean setAccelerator;
+    private final ExternalFinderItem.TARGET target;
+    private final boolean popup;
 
-    public ExternalFinderItemMenuGenerator(List<ExternalFinderItem> finderItems, boolean setAccelerator) {
+    public ExternalFinderItemMenuGenerator(List<ExternalFinderItem> finderItems, ExternalFinderItem.TARGET target, boolean popup) {
         this.finderItems = finderItems;
-        this.setAccelerator = setAccelerator;
+        this.target = target;
+        this.popup = popup;
     }
 
     @Override
@@ -48,16 +51,31 @@ public class ExternalFinderItemMenuGenerator implements IExternalFinderItemMenuG
             }
 
             // generate menu
-            menuItems.add(new JSeparator());
+            if (popup) {
+                menuItems.add(new JPopupMenu.Separator());
+            } else {
+                menuItems.add(new JToolBar.Separator());
+            }
             for (int i = 0, n = finderItems.size(); i < n; i++) {
-                JMenuItem item = new JMenuItem(finderItems.get(i).getName());
+                ExternalFinderItem finderItem = finderItems.get(i);
+                if (target == ExternalFinderItem.TARGET.ASCII_ONLY
+                        && finderItem.isNonAsciiOnly()) {
+                    continue;
+                } else if (target == ExternalFinderItem.TARGET.NON_ASCII_ONLY
+                        && finderItem.isAsciiOnly()) {
+                    continue;
+                }
+                JMenuItem item = new JMenuItem(finderItem.getName());
 
                 // set keyboard shortcut
-                if (setAccelerator) {
-                    item.setAccelerator(finderItems.get(i).getKeystroke());
+                if (!popup) {
+                    item.setAccelerator(finderItem.getKeystroke());
                 }
-                item.addActionListener(new ExternalFinderItemActionListener(finderItems.get(i)));
+                item.addActionListener(new ExternalFinderItemActionListener(finderItem));
                 menuItems.add(item);
+            }
+            if (popup) {
+                menuItems.add(new JPopupMenu.Separator());
             }
         }
         return menuItems;
@@ -65,12 +83,10 @@ public class ExternalFinderItemMenuGenerator implements IExternalFinderItemMenuG
 
     private static class ExternalFinderItemActionListener implements ActionListener {
 
-        private final ExternalFinderItem finderItem;
         private final List<ExternalFinderItemURL> URLs;
         private final List<ExternalFinderItemCommand> commands;
 
         public ExternalFinderItemActionListener(ExternalFinderItem finderItem) {
-            this.finderItem = finderItem;
             this.URLs = finderItem.getURLs();
             this.commands = finderItem.getCommands();
         }

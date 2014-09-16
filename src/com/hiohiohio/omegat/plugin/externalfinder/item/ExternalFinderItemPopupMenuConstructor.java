@@ -38,7 +38,14 @@ public class ExternalFinderItemPopupMenuConstructor implements IPopupMenuConstru
             return;
         }
 
-        IExternalFinderItemMenuGenerator generator = new ExternalFinderItemMenuGenerator(finderItems, false);
+        ExternalFinderItem.TARGET target;
+        if (ExternalFinderItem.isASCII(selection)) {
+            target = ExternalFinderItem.TARGET.ASCII_ONLY;
+        } else {
+            target = ExternalFinderItem.TARGET.NON_ASCII_ONLY;
+        }
+
+        IExternalFinderItemMenuGenerator generator = new ExternalFinderItemMenuGenerator(finderItems, target, true);
         final List<Component> newMenuItems = generator.generate();
 
         for (Component component : newMenuItems) {

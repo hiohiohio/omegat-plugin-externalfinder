@@ -41,6 +41,8 @@ public class ExternalFinderItem {
     private List<ExternalFinderItemURL> URLs;
     private List<ExternalFinderItemCommand> commands;
     private KeyStroke keystroke;
+    private Boolean asciiOnly = null;
+    private Boolean nonAsciiOnly = null;
 
     public ExternalFinderItem() {
         this.URLs = new ArrayList<ExternalFinderItemURL>();
@@ -67,6 +69,8 @@ public class ExternalFinderItem {
     }
 
     public void setURLs(List<ExternalFinderItemURL> URLs) {
+        this.asciiOnly = null;
+        this.nonAsciiOnly = null;
         this.URLs = URLs;
     }
 
@@ -75,6 +79,8 @@ public class ExternalFinderItem {
     }
 
     public void setCommands(List<ExternalFinderItemCommand> commands) {
+        this.asciiOnly = null;
+        this.nonAsciiOnly = null;
         this.commands = commands;
     }
 
@@ -86,11 +92,47 @@ public class ExternalFinderItem {
         this.keystroke = keystroke;
     }
 
+    public boolean isAsciiOnly() {
+        if (asciiOnly == null) {
+            asciiOnly = isTargetOnly(TARGET.ASCII_ONLY);
+        }
+
+        return asciiOnly;
+    }
+
+    public boolean isNonAsciiOnly() {
+        if (nonAsciiOnly == null) {
+            nonAsciiOnly = isTargetOnly(TARGET.NON_ASCII_ONLY);
+        }
+
+        return nonAsciiOnly;
+    }
+
+    private boolean isTargetOnly(final TARGET target) {
+        for (ExternalFinderItemURL url : URLs) {
+            if (url.getTarget() != target) {
+                return false;
+            }
+        }
+
+        for (ExternalFinderItemCommand command : commands) {
+            if (command.getTarget() != target) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public ExternalFinderItem replaceRefs(final ExternalFinderItem item) {
         this.name = item.name;
         this.URLs = item.URLs;
         this.commands = item.commands;
         this.keystroke = item.keystroke;
+
+        this.asciiOnly = null; // item.isAsciiOnly();
+        this.nonAsciiOnly = null; // item.isNonAsciiOnly();
+
         return this;
     }
 

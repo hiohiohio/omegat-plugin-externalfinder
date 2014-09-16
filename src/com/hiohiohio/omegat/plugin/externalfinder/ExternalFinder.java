@@ -125,7 +125,8 @@ public class ExternalFinder {
                 }
 
                 // add finder items to menuItems
-                final IExternalFinderItemMenuGenerator generator = new ExternalFinderItemMenuGenerator(finderItems, true);
+                final IExternalFinderItemMenuGenerator generator
+                        = new ExternalFinderItemMenuGenerator(finderItems, ExternalFinderItem.TARGET.BOTH, false);
                 final List<Component> newMenuItems = generator.generate();
                 menuItems.addAll(newMenuItems);
 
