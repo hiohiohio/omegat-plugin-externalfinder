@@ -76,6 +76,55 @@ public class ExternalFinderXMLItemLoader implements IExternalFinderItemLoader {
         return finderItems;
     }
 
+    @Override
+    public int loadPopupPriority(int defaultPriority) {
+        int priority = defaultPriority;
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.parse(file);
+
+            priority = retrivePriority(document, priority);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ExternalFinderXMLItemLoader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ExternalFinderXMLItemLoader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ExternalFinderXMLItemLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return priority;
+    }
+
+    private static int retrivePriority(final Document document, final int defaultPriority) {
+        int priority = defaultPriority;
+
+        NodeList items = document.getElementsByTagName("items");
+        if (items == null || items.getLength() != 1) {
+            return priority;
+        }
+
+        Node item = items.item(0);
+        if (!item.hasAttributes()) {
+            return priority;
+        }
+
+        Node namedItem = item.getAttributes().getNamedItem("priority");
+        if (namedItem == null) {
+            return priority;
+        }
+
+        String value = namedItem.getTextContent();
+        try {
+            priority = Integer.parseInt(value);
+        } catch (NumberFormatException ex) {
+            // ignore
+        }
+
+        return priority;
+    }
+
     private static ExternalFinderItem generateFinderItem(Node item) {
         if (!item.hasChildNodes()) {
             return null;

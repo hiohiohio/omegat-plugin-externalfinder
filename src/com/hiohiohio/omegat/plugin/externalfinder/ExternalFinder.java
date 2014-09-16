@@ -38,6 +38,9 @@ public class ExternalFinder {
 
     public static final String FINDER_FILE = "finder.xml";
 
+    // the default value means the items may be placed at the top of popup menu.
+    private static final int DEFAULT_POPUP_PRIORITY = 50;
+
     /**
      * to support v2 of OmegaT, this class will be registered as a base-plugin
      * class.
@@ -153,7 +156,17 @@ public class ExternalFinder {
 
             @Override
             public void onApplicationStartup() {
-                Core.getEditor().registerPopupMenuConstructors(2500, new ExternalFinderItemPopupMenuConstructor(finderItems));
+                int priority = DEFAULT_POPUP_PRIORITY;
+
+                // load user's xml file for priority of popup items
+                final String configDir = StaticUtils.getConfigDir();
+                final File userFile = new File(configDir, FINDER_FILE);
+                if (userFile.canRead()) {
+                    final IExternalFinderItemLoader userItemLoader = new ExternalFinderXMLItemLoader(userFile);
+                    priority = userItemLoader.loadPopupPriority(priority);
+                }
+
+                Core.getEditor().registerPopupMenuConstructors(priority, new ExternalFinderItemPopupMenuConstructor(finderItems));
             }
 
             @Override

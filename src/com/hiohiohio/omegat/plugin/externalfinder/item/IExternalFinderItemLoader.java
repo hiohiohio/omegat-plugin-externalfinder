@@ -20,4 +20,7 @@ import java.util.List;
 public interface IExternalFinderItemLoader {
 
     public List<ExternalFinderItem> load();
+
+    // for popup menu
+    public int loadPopupPriority(int defaultPriority);
 }
