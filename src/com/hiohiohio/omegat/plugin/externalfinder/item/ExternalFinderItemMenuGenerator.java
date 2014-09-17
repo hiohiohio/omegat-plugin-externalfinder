@@ -68,13 +68,17 @@ public class ExternalFinderItemMenuGenerator implements IExternalFinderItemMenuG
                         && finderItem.isAsciiOnly()) {
                     continue;
                 }
+
                 JMenuItem item = new JMenuItem(finderItem.getName());
+                // adding mnemonic
+                item.setMnemonic(finderItem.getKeycode());
 
                 // set keyboard shortcut
                 if (!popup) {
                     item.setAccelerator(finderItem.getKeystroke());
                 }
                 item.addActionListener(new ExternalFinderItemActionListener(finderItem));
+
                 menuItems.add(item);
             }
             if (popup) {

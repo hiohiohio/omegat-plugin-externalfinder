@@ -41,7 +41,7 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
 
 * **items**: This element has an *optional* attribute *priority*.
 * **item**: This element has an *optional* attribute *nopopup*.
-* **name**: A string to show as a menu item.
+* **name**: A string to show as a menu item. For a mnemonic, you can use '_'.
 * **url**: A URL with a **{target}** placeholder with *optional* attributes: *target* and *encoding*.
 * **command**: A command string with a **{taget}** placeholder with *optional* attributes: *target*, *encoding*, and *delimiter*.
 * **keystroke**: A definition of the keyboard shortcut (same as OmegaT's custom keyboard shortcut). Ref. [KeyStroke (Java Platform SE 8 )](http://docs.oracle.com/javase/8/docs/api/javax/swing/KeyStroke.html#getKeyStroke-java.lang.String-)
@@ -78,6 +78,14 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
         <name>Yahoo</name>
         <url target="ascii_only">http://search.yahoo.com/search?p={target}</url>
         <url target="non_ascii_only">http://search.yahoo.co.jp/search?p={target}</url>
+    </item>
+    <item>
+	    <name>Google _difinition</name>
+	    <url target="ascii_only">https://www.google.com/search?q=Define+{target}</url>
+    </item>
+    <item>
+	    <name>Google _patent</name>
+	    <url target="ascii_only">https://www.google.com/search?q=Patent+{target}</url>
     </item>
 </items>
 ```

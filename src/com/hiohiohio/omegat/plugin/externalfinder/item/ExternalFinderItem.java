@@ -37,6 +37,8 @@ public class ExternalFinderItem {
         DEFAULT, ESCAPE, NONE
     }
 
+    private static final int UNDEFINED_KEYCODE = -2;
+
     private String name;
     private List<ExternalFinderItemURL> URLs;
     private List<ExternalFinderItemCommand> commands;
@@ -44,6 +46,7 @@ public class ExternalFinderItem {
     private boolean nopopup = false;
     private Boolean asciiOnly = null;
     private Boolean nonAsciiOnly = null;
+    private int keycode = UNDEFINED_KEYCODE;
 
     public ExternalFinderItem() {
         this.URLs = new ArrayList<ExternalFinderItemURL>();
@@ -51,7 +54,14 @@ public class ExternalFinderItem {
     }
 
     public ExternalFinderItem(String name, List<ExternalFinderItemURL> URLs, List<ExternalFinderItemCommand> commands, KeyStroke keystroke, boolean nopopup) {
-        this.name = name;
+        int mnemonic = mnemonicPosition(name);
+        if (mnemonic != -1) {
+            this.name = name.substring(0, mnemonic) + name.substring(mnemonic + 1);
+            this.keycode = (int) Character.toUpperCase(name.charAt(mnemonic + 1));
+        } else {
+            this.name = name;
+            this.keycode = -1;
+        }
         this.URLs = URLs;
         this.commands = commands;
         this.keystroke = keystroke;
@@ -63,7 +73,14 @@ public class ExternalFinderItem {
     }
 
     public void setName(String name) {
-        this.name = name;
+        int mnemonic = mnemonicPosition(name);
+        if (mnemonic != -1) {
+            this.name = name.substring(0, mnemonic) + name.substring(mnemonic + 1);
+            this.keycode = (int) Character.toUpperCase(name.charAt(mnemonic + 1));
+        } else {
+            this.name = name;
+            this.keycode = -1;
+        }
     }
 
     public List<ExternalFinderItemURL> getURLs() {
@@ -134,12 +151,31 @@ public class ExternalFinderItem {
         return true;
     }
 
+    public int getKeycode() {
+        return keycode;
+    }
+
+    private static int mnemonicPosition(String name) {
+        int ret = name.indexOf("_");
+        if (ret != -1 && (ret + 1) != name.length()) {
+            char ch = name.charAt(ret + 1);
+            if (ch == ' ') {
+                ret = -1;
+            }
+        } else {
+            ret = -1;
+        }
+
+        return ret;
+    }
+
     public ExternalFinderItem replaceRefs(final ExternalFinderItem item) {
         this.name = item.name;
         this.URLs = item.URLs;
         this.commands = item.commands;
         this.keystroke = item.keystroke;
         this.nopopup = item.nopopup;
+        this.keycode = item.keycode;
 
         this.asciiOnly = null; // item.isAsciiOnly();
         this.nonAsciiOnly = null; // item.isNonAsciiOnly();
