@@ -80,12 +80,16 @@ Note: User's config directory quoted from the [Manual](http://sourceforge.net/p/
         <url target="non_ascii_only">http://search.yahoo.co.jp/search?p={target}</url>
     </item>
     <item>
-	    <name>Google _difinition</name>
-	    <url target="ascii_only">https://www.google.com/search?q=Define+{target}</url>
+        <name>Google _difinition</name>
+        <url target="ascii_only">https://www.google.com/search?q=Define+{target}</url>
     </item>
     <item>
-	    <name>Google _patent</name>
-	    <url target="ascii_only">https://www.google.com/search?q=Patent+{target}</url>
+        <name>Google _patent</name>
+        <url target="ascii_only">https://www.google.com/search?q=Patent+{target}</url>
+    </item>
+    <item>
+        <name>Google (_ja)</name>
+        <url target="both" encoding="default">https://www.google.com/search?q=%22{target}%22&amp;lr=lang_ja&amp;ie=UTF-8</url>
     </item>
 </items>
 ```
