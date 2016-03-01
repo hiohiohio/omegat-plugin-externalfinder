@@ -20,7 +20,7 @@ Installation
 * Unzip it.
 * Put OmegaT-plugin-ExternalFinder.jar on the plugins directory of OmegaT.
 * Put finder.xml on user's config directory or a project directory.
-* **For Mac users**: please run the following command from terminal to allow this plugin can execute commands. ***chmod +x /Applications/OmegaT.app/Contents/MacOS/jre/lib/jspawnhelper***
+* **For Mac users with OmegaT older than 3.1.9_04**: please run the following command from terminal to allow this plugin can execute commands. ***chmod +x /Applications/OmegaT.app/Contents/MacOS/jre/lib/jspawnhelper***
 
 Configuration
 --------------------------------
