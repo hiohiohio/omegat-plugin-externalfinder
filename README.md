@@ -12,7 +12,8 @@ https://github.com/hiohiohio/omegat-plugin-externalfinder/releases/latest
 
 Requirements
 --------------------------------
-OmegaT v2.6.3 or later
+* OmegaT v2.6.3 to v4.0.1
+* From OmegaT v4.1, OmegaT includes feature of this plugin. You do not need to install this plugin.
 
 Installation
 --------------------------------
